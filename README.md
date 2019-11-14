@@ -4,6 +4,10 @@ Fallout3Terminal is my own version of a Fallout 3/4/NV Terminal operating system
 
 This is actually just a bash script that can be run from the terminal, and the output is displaying on a highly customizable retro terminal called cool-retro-terminal. 
 
+See my demonstration video of this on reddit, the post can be found here:
+
+https://www.reddit.com/r/linux/comments/dw9gfw/i_recreated_a_fallout_3_terminal_as_a_linux_bash/
+
 # REQUIREMENTS
 
 You must have the following:
