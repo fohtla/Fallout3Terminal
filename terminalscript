@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 IFS=$'\n'
 entrylist=('Go Back')
 rawentry="$(find $HOME/Fallout3Terminal/entries -type f)"
@@ -27,7 +27,7 @@ ___________________________________________________'
 
 
 #Main Menu Screen
-function mainmenufunc () 
+mainmenufunc () 
 {
 clear
 
@@ -68,7 +68,7 @@ done
 
 
 #Option 1 Menu, Viewing Journal Entries
-function viewentriesfunc () 
+viewentriesfunc () 
 {
 #adding all the text files as individual strings to be used as a selection menu
 entrylist=('Go Back')
@@ -118,7 +118,7 @@ done
 }
 
 #menu for writing an entry
-function writeentryfunc () 
+writeentryfunc () 
 {
 
 #displays menu text
@@ -154,7 +154,7 @@ repeatmainmenufunc
 }
 
 #menu to delete an entry
-function deleteentryfunc () 
+deleteentryfunc () 
 {
 
 #adding all the text files as individual strings to be used as a selection menu
@@ -220,7 +220,7 @@ done
 }
 
 #same as main menu screen function, but without the annoying animations
-function repeatmainmenufunc ()
+repeatmainmenufunc ()
 {
 clear
 
