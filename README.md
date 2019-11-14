@@ -8,7 +8,7 @@ pv
 cool-retro-term
 sox
 
-To run this script, open your terminal and enter the following:
+To run this script, make "terminalscript" an executable, open your terminal and enter the following:
 
 cool-retro-term --fullscreen --noclose -e bash $HOME/Fallout3Terminal/terminalscript
 
