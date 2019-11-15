@@ -26,7 +26,7 @@ To run this script clone this repository, make "terminalscript" an executable , 
 
 ```bash
 git clone https://github.com/fohtla/Fallout3Terminal
-$HOME/Fallout3Terminal/terminalscript
+chmod +x $HOME/Fallout3Terminal/terminalscript
 cool-retro-term --fullscreen --noclose -e bash $HOME/Fallout3Terminal/terminalscript
 ```
 
