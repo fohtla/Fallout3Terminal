@@ -110,7 +110,7 @@ done
     play -q $BASE_DIR/ui_hacking_charscroll.wav
     echo "$readoption:"  | pv -qL 80
     play -q $BASE_DIR/ui_hacking_charscroll.wav
-    cat< "$HOME/Fallout3Terminal/entries/$readoption"  | pv -qL 80
+    cat< "$BASE_DIR/entries/$readoption"  | pv -qL 80
     echo
     read -p "Press enter to continue"
     play -q $BASE_DIR/ui_hacking_charenter_01.wav
