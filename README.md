@@ -12,15 +12,17 @@ See my demonstration video of this on reddit, the post can be found here:
 
 You must have the following:
 
-* Linux based operating system
+* Linux based or MacOS operating system
 * The following packages installed:
     * pv
     * cool-retro-term
     * sox
 
-This has not been tested on Windows, macOS, or *BSD operating systems.
+This has not been tested on Windows or *BSD operating systems.
 
-# Download and run Fallout3Terminal
+Thanks to gitHub user iFloris, there are now instructions to run this on MacOS! Read on below.
+
+# Download and run Fallout3Terminal in Linux
 
 To run this script clone this repository, make "terminalscript" an executable , and run `cool-retro-term` as follows:
 
@@ -31,6 +33,19 @@ cool-retro-term --fullscreen --noclose -e bash $HOME/Fallout3Terminal/terminalsc
 ```
 
 You can also enter that command in your startup manager, as well as make launcher with it!
+
+# Download and Run Fallout3Terminal on MacOS
+
+ ( Instructions provided by user iFloris! )
+
+* Have homebrew installed
+   * Run the following:
+```
+brew install sox pv
+brew cask install cool-retro-term
+git clone https://github.com/fohtla/Fallout3Terminal
+/Applications/cool-retro-term.app/Contents/MacOS/cool-retro-term --fullscreen --noclose -e bash $HOME/Fallout3Terminal/terminalscript
+```
 
 # Additional notes
 
