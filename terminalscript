@@ -7,6 +7,15 @@ i=${i##*/}
 entrylist+=("$i")
 done
 
+#Global_Variables
+#SoundsPath
+charscroll="$HOME/Fallout3Terminal/ui_hacking_charenter_01.wav"
+hacking="$HOME/Fallout3Terminal/ui_hacking_charenter_01.wav"
+hackin_good="$HOME/Fallout3Terminal/ui_hacking_passgood.wav"
+hacking_bad="$HOME/Fallout3Terminal/ui_hacking_passbad.wav"
+#HeaderPath
+header="$HOME/Fallout3Terminal/greeterheader.txt"
+#
 COLUMNS=12
 
 
@@ -32,10 +41,10 @@ mainmenufunc ()
 clear
 
 #display the Menu text
-play -q $HOME/Fallout3Terminal/ui_hacking_charscroll.wav
-display_center "$HOME/Fallout3Terminal/greeterheader.txt" | pv -qL 80
+play -q $charscroll
+display_center $header | pv -qL 80
 echo "$greeter" | pv -qL 80
-play -q $HOME/Fallout3Terminal/ui_hacking_charscroll.wav
+play -q $charscroll
 echo What would you like to do? | pv -qL 80
 
 #Display the menu options
@@ -44,23 +53,23 @@ select menuchoice in "View Journal Entries" "Log a Journal Entry" "Delete a Jour
 do
     case $menuchoice in
     "View Journal Entries")
-    play -q $HOME/Fallout3Terminal/ui_hacking_charenter_01.wav
+    play -q $hacking
     viewentriesfunc
     ;;
     "Log a Journal Entry")
-    play -q $HOME/Fallout3Terminal/ui_hacking_charenter_01.wav
+    play -q $hacking
    writeentryfunc
     ;;
     "Delete a Journal Entry")
-    play -q $HOME/Fallout3Terminal/ui_hacking_charenter_01.wav
+    play -q $hacking
     deleteentryfunc
     ;;
     "Proceed to Desktop")
-    play -q $HOME/Fallout3Terminal/ui_hacking_charenter_01.wav
+    play -q $hacking
     echo Goodbye! && exit
     ;;
     *)
-    play -q $HOME/Fallout3Terminal/ui_hacking_passbad.wav
+    play -q $hacking
     ;;
     esac
 done
@@ -80,9 +89,9 @@ done
 
 #display the Menu text
     clear
-    display_center "$HOME/Fallout3Terminal/greeterheader.txt"
+    display_center $header
     echo "$greeter" 
-    play -q $HOME/Fallout3Terminal/ui_hacking_charscroll.wav
+    play -q $charscroll
     echo Which Journal Entry would you like to access? | pv -qL 80
     
     #display the menu options
@@ -91,26 +100,26 @@ done
     do
     case $readoption in
     "Go Back")
-    play -q $HOME/Fallout3Terminal/ui_hacking_charenter_01.wav
+    play -q $hacking
     repeatmainmenufunc
     ;;
         *)
-    play -q $HOME/Fallout3Terminal/ui_hacking_charenter_01.wav
+    play -q $hacking
     ;;
     esac
 
     #displays the selected entry
     clear
-   display_center "$HOME/Fallout3Terminal/greeterheader.txt"
+   display_center $header
    echo "$greeter"
     echo
-    play -q $HOME/Fallout3Terminal/ui_hacking_charscroll.wav
+    play -q $charscroll
     echo "$readoption:"  | pv -qL 80
-    play -q $HOME/Fallout3Terminal/ui_hacking_charscroll.wav
+    play -q $charscroll
     cat< "$HOME/Fallout3Terminal/entries/$readoption"  | pv -qL 80
     echo
     read -p "Press enter to continue"
-    play -q $HOME/Fallout3Terminal/ui_hacking_charenter_01.wav
+    play -q $hacking
     
     #goes back to main menu
     repeatmainmenufunc
@@ -123,29 +132,29 @@ writeentryfunc ()
 
 #displays menu text
 clear
-display_center "$HOME/Fallout3Terminal/greeterheader.txt"
+display_center $header
 echo "$greeter" 
-play -q $HOME/Fallout3Terminal/ui_hacking_charscroll.wav
+play -q $charscroll
 echo "What would you like to name the entry?" | pv -qL 80
 
 #reads user input
 read entrynameinput 
-play -q $HOME/Fallout3Terminal/ui_hacking_charenter_01.wav
+play -q $hacking
 
 #displays menu text again
 clear
-display_center "$HOME/Fallout3Terminal/greeterheader.txt"
+display_center $header
 echo "$greeter" 
-play -q $HOME/Fallout3Terminal/ui_hacking_charscroll.wav
+play -q $charscroll
 echo Press CTRL+D to finalise entry  | pv -qL 80
-play -q $HOME/Fallout3Terminal/ui_hacking_charscroll.wav
+play -q $charscroll
 echo $entrynameinput:  | pv -qL 80
 echo
 #uses cat text editor to write entries. ctrl+d to finish
 cat >"$HOME/Fallout3Terminal/entries/$entrynameinput"
 cat "$HOME/Fallout3Terminal/entries/$entrynameinput"
 clear
-play -q $HOME/Fallout3Terminal/ui_hacking_charenter_01.wav
+play -q $hacking
 
 #returns to mainmenu
 repeatmainmenufunc
@@ -167,9 +176,9 @@ done
 
     #displays menu text
     clear
-    display_center "$HOME/Fallout3Terminal/greeterheader.txt"
+    display_center $header
     echo "$greeter" 
-    play -q $HOME/Fallout3Terminal/ui_hacking_charscroll.wav
+    play -q $charscroll
     echo Which Journal Entry would you like to delete? | pv -qL 80
     
     #displays menu options
@@ -178,39 +187,39 @@ done
     do
     case $readoption in
     "Go Back")
-    play -q $HOME/Fallout3Terminal/ui_hacking_charenter_01.wav
+    play -q $hacking
     repeatmainmenufunc
     ;;
         *)
-    play -q $HOME/Fallout3Terminal/ui_hacking_charenter_01.wav
+    play -q $charscroll
     ;;
     esac
     
     #displays menu text again
     clear
-   display_center "$HOME/Fallout3Terminal/greeterheader.txt"
+   display_center $header
    echo "$greeter"
     echo
-    play -q $HOME/Fallout3Terminal/ui_hacking_charscroll.wav
+    play -q $charscroll
     echo "Delete $readoption? Type YES to continue"  | pv -qL 80
-    play -q $HOME/Fallout3Terminal/ui_hacking_charscroll.wav
+    play -q $charscroll
     
     #detects user input if they typed in "yes". case insensitive as it converts it to all caps
     read confirmdeletion
      if  [[ ${confirmdeletion^^} == "YES" ]]
      then
      rm -f "$HOME/Fallout3Terminal/entries/$readoption"
-     play -q $HOME/Fallout3Terminal/ui_hacking_charenter_01.wav
+     play -q $hacking
      echo FILE DELETED!
-     play -q  $HOME/Fallout3Terminal/ui_hacking_passgood.wav
+     play -q  $hacking_good
      sleep 0.1
                 repeatmainmenufunc
                 
             #if something other than yes was typed in
         else
         echo OPERATION CANCELLED
-        play -q $HOME/Fallout3Terminal/ui_hacking_charenter_01.wav
-        play -q  $HOME/Fallout3Terminal/ui_hacking_passbad.wav
+        play -q $hacking
+        play -q  $hacking_bad
         sleep 0.2
         
         #goes back to main menu
@@ -224,32 +233,32 @@ repeatmainmenufunc ()
 {
 clear
 
-display_center "$HOME/Fallout3Terminal/greeterheader.txt"
+display_center $header
 echo "$greeter" 
-play -q $HOME/Fallout3Terminal/ui_hacking_charscroll.wav
+play -q $charscroll
 echo What would you like to do? | pv -qL 80
 COLUMNS=12
 select menuchoice in "View Journal Entries" "Log a Journal Entry" "Delete a Journal Entry" "Proceed to Desktop"
 do
     case $menuchoice in
     "View Journal Entries")
-    play -q $HOME/Fallout3Terminal/ui_hacking_charenter_01.wav
+    play -q $hacking
     viewentriesfunc
     ;;
     "Log a Journal Entry")
-    play -q $HOME/Fallout3Terminal/ui_hacking_charenter_01.wav
+    play -q $hacking
    writeentryfunc
     ;;
     "Delete a Journal Entry")
-    play -q $HOME/Fallout3Terminal/ui_hacking_charenter_01.wav
+    play -q $hacking
     deleteentryfunc
     ;;
     "Proceed to Desktop")
-    play -q $HOME/Fallout3Terminal/ui_hacking_charenter_01.wav
+    play -q $hacking
     echo Goodbye! && exit
     ;;
     *)
-    play -q $HOME/Fallout3Terminal/ui_hacking_passbad.wav
+    play -q $hacking_bad
     ;;
     esac
 done
@@ -261,33 +270,32 @@ done
 #some random aesthetic startup junk
 
 clear
-play -q $HOME/Fallout3Terminal/ui_hacking_charscroll.wav
+play -q $charscroll
 echo Initializing boot... | pv -qL 80
 sleep 0.4
-play -q $HOME/Fallout3Terminal/ui_hacking_charscroll.wav
+play -q $charscroll
 echo Loading RobCo Unified OS...  | pv -qL 80
 sleep 0.4
-play -q $HOME/Fallout3Terminal/ui_hacking_charscroll.wav
+play -q $charscroll
 echo 64K RAM detected...  | pv -qL 80
 sleep 0.4
-play -q $HOME/Fallout3Terminal/ui_hacking_charscroll.wav
+play -q $charscroll
 echo Launching Interface...  | pv -qL 80
 sleep 0.4
 clear
 echo $'
-
 
   _____       _      _____                   
  |  __ \     | |    / ____|                  
  | |__) |___ | |__ | |     ___               
  |  _  // _ \| \'_ \| |    / _ \              
  | | \ \ (_) | |_) | |___| (_) |             
- |_|__\_\___/|_.__/ \_____\___/  _           
+ |_|__\_\___/|_.__/ \_____\___/  _          
 
 '
            
 echo "==============================================" | pv -qL 50
-play -q $HOME/Fallout3Terminal/ui_hacking_passgood.wav
+play -q $hacking_bad
 sleep 1
 
 #goes to the main menu
