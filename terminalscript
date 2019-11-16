@@ -24,7 +24,7 @@ fi
 #}}}
 
 #This function is to display the top header in a centred alignment!
-display_center() {
+display_center(){
     columns="$(tput cols)"
     while IFS= read -r line; do
         printf "%*s\n" $(( (${#line} + columns) / 2)) "$line"
@@ -52,25 +52,25 @@ COLUMNS=12
 select menuchoice in "View Journal Entries" "Log a Journal Entry" "Delete a Journal Entry" "Proceed to Desktop"
 do
     case $menuchoice in
-    	"View Journal Entries")
-    		playa $BASE_DIR/ui_hacking_charenter_01.wav
-			viewentriesfunc
-			;;
-	    "Log a Journal Entry")
-	    	playa $BASE_DIR/ui_hacking_charenter_01.wav
-	    	writeentryfunc
-	   	 ;;
+	   	"View Journal Entries")
+    	playa $BASE_DIR/ui_hacking_charenter_01.wav
+		viewentriesfunc
+	    ;;
+  	 	"Log a Journal Entry")
+	    playa $BASE_DIR/ui_hacking_charenter_01.wav
+   		writeentryfunc
+	    ;;
 	    "Delete a Journal Entry")
-	    	playa $BASE_DIR/ui_hacking_charenter_01.wav
-	   	 deleteentryfunc
-    		;;
+	    playa $BASE_DIR/ui_hacking_charenter_01.wav
+	    deleteentryfunc
+    	;;
 	    "Proceed to Desktop")
-	   	 playa $BASE_DIR/ui_hacking_charenter_01.wav
-	    	echo Goodbye! && exit
-	   	 ;;
+	    playa $BASE_DIR/ui_hacking_charenter_01.wav
+	    echo Goodbye! && exit
+	    ;;
 	    *)
-	    	playa $BASE_DIR/ui_hacking_passbad.wav
-	    	;;
+	    playa $BASE_DIR/ui_hacking_passbad.wav
+	    ;;
     esac
 done
 }
@@ -96,14 +96,14 @@ done
 #display the menu options
 COLUMNS=12
 select readoption in ${entrylist[@]};	do
-	case $readoption in
-    	"Go Back")
-	    	playa $BASE_DIR/ui_hacking_charenter_01.wav
-	   	 repeatmainmenufunc
-	   	 ;;
+    case $readoption in
+	    "Go Back")
+	    playa $BASE_DIR/ui_hacking_charenter_01.wav
+	    repeatmainmenufunc
+	    ;;
         *)
-	   	 playa $BASE_DIR/ui_hacking_charenter_01.wav
-	   	 ;;
+	    playa $BASE_DIR/ui_hacking_charenter_01.wav
+	    ;;
     esac
 
     #displays the selected entry
@@ -175,7 +175,7 @@ done
     
     #displays menu options
     COLUMNS=12
-    select readoption in ${entrylist[@]}; do
+    select readoption in ${entrylist[@]};	do
     	case $readoption in
 			"Go Back")
 				playa $BASE_DIR/ui_hacking_charenter_01.wav
@@ -204,8 +204,8 @@ read confirmdeletion
 	     playa  $BASE_DIR/ui_hacking_passgood.wav
 	     sleep 0.1
 	     repeatmainmenufunc
-	     
-	#if something other than yes was typed in
+                
+        #if something other than yes was typed in
 	else
         echo OPERATION CANCELLED
         playa $BASE_DIR/ui_hacking_charenter_01.wav
@@ -230,24 +230,24 @@ select menuchoice in "View Journal Entries" "Log a Journal Entry" "Delete a Jour
 do
     case $menuchoice in
 	    "View Journal Entries")
-    		playa $BASE_DIR/ui_hacking_charenter_01.wav
-	    	viewentriesfunc
-    		;;
+    	playa $BASE_DIR/ui_hacking_charenter_01.wav
+	    viewentriesfunc
+    	;;
 	    "Log a Journal Entry")
-	  	  playa $BASE_DIR/ui_hacking_charenter_01.wav
-	  	  writeentryfunc
-	  	  ;;
+	    playa $BASE_DIR/ui_hacking_charenter_01.wav
+	 	writeentryfunc
+	    ;;
 	    "Delete a Journal Entry")
-	  	  playa $BASE_DIR/ui_hacking_charenter_01.wav
-	  	  deleteentryfunc
-	   	 ;;
+	    playa $BASE_DIR/ui_hacking_charenter_01.wav
+	    deleteentryfunc
+	    ;;
 	    "Proceed to Desktop")
-	   	 playa $BASE_DIR/ui_hacking_charenter_01.wav
-	  	  echo Goodbye! && exit
-	  	  ;;
+	    playa $BASE_DIR/ui_hacking_charenter_01.wav
+	    echo Goodbye! && exit
+	    ;;
 	    *)
-	    	playa $BASE_DIR/ui_hacking_passbad.wav
-	    	;;
+	    playa $BASE_DIR/ui_hacking_passbad.wav
+	    ;;
     esac
 done
 }
