@@ -13,9 +13,9 @@ done
 COLUMNS=12
 
 #Check if running on Android.{{{
+andy=$(uname -a | grep -o "Android")
 playa(){
-uname -a | grep -oq "Android"
-if [[ $? -eq 0 ]]; then
+if [[ "$andy" = "Android" ]]; then
 	play-audio "$1" #Program which works on Termux. Android.
 else
 	play -q "$1" #Program which works on linux distros.
