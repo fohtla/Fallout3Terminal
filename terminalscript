@@ -12,6 +12,16 @@ done
 
 COLUMNS=12
 
+#Check if running on Android.{{{
+playa(){
+uname -a | grep -oq "Android"
+if [[ $? -eq 0 ]]; then
+	play-audio "$1" #Program which works on Termux. Android.
+else
+	play -q "$1" #Program which works on linux distros.
+fi
+}
+#}}}
 
 #This function is to display the top header in a centred alignment!
 display_center(){
@@ -21,13 +31,10 @@ display_center(){
     done < "$1"
 }
 
-
 #This string is to be displayed as a custom "title header" at the top, feel free to customise it, as most Terminals in Fallout have their own custom one based on their owner!
 greeter=$'
 Personal Terminal "Proto-Boy" Manufactured by RobCo
 ___________________________________________________'
-
-
 
 #Main Menu Screen
 mainmenufunc () 
@@ -35,10 +42,10 @@ mainmenufunc ()
 clear
 
 #display the Menu text
-play -q $BASE_DIR/ui_hacking_charscroll.wav
+playa $BASE_DIR/ui_hacking_charscroll.wav
 display_center "$BASE_DIR/greeterheader.txt" | pv -qL 80
 echo "$greeter" | pv -qL 80
-play -q $BASE_DIR/ui_hacking_charscroll.wav
+playa $BASE_DIR/ui_hacking_charscroll.wav
 echo What would you like to do? | pv -qL 80
 
 #Display the menu options
@@ -47,23 +54,23 @@ select menuchoice in "View Journal Entries" "Log a Journal Entry" "Delete a Jour
 do
     case $menuchoice in
     "View Journal Entries")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
+    playa $BASE_DIR/ui_hacking_charenter_01.wav
     viewentriesfunc
     ;;
     "Log a Journal Entry")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
+    playa $BASE_DIR/ui_hacking_charenter_01.wav
    writeentryfunc
     ;;
     "Delete a Journal Entry")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
+    playa $BASE_DIR/ui_hacking_charenter_01.wav
     deleteentryfunc
     ;;
     "Proceed to Desktop")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
+    playa $BASE_DIR/ui_hacking_charenter_01.wav
     echo Goodbye! && exit
     ;;
     *)
-    play -q $BASE_DIR/ui_hacking_passbad.wav
+    playa $BASE_DIR/ui_hacking_passbad.wav
     ;;
     esac
 done
@@ -85,7 +92,7 @@ done
     clear
     display_center "$BASE_DIR/greeterheader.txt"
     echo "$greeter" 
-    play -q $BASE_DIR/ui_hacking_charscroll.wav
+    playa $BASE_DIR/ui_hacking_charscroll.wav
     echo Which Journal Entry would you like to access? | pv -qL 80
     
     #display the menu options
@@ -94,11 +101,11 @@ done
     do
     case $readoption in
     "Go Back")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
+    playa $BASE_DIR/ui_hacking_charenter_01.wav
     repeatmainmenufunc
     ;;
         *)
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
+    playa $BASE_DIR/ui_hacking_charenter_01.wav
     ;;
     esac
 
@@ -107,13 +114,13 @@ done
    display_center "$BASE_DIR/greeterheader.txt"
    echo "$greeter"
     echo
-    play -q $BASE_DIR/ui_hacking_charscroll.wav
+    playa $BASE_DIR/ui_hacking_charscroll.wav
     echo "$readoption:"  | pv -qL 80
-    play -q $BASE_DIR/ui_hacking_charscroll.wav
+    playa $BASE_DIR/ui_hacking_charscroll.wav
     cat< "$BASE_DIR/entries/$readoption"  | pv -qL 80
     echo
-    read -p "Press enter to continue"
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
+    read "Press enter to continue"
+    playa $BASE_DIR/ui_hacking_charenter_01.wav
     
     #goes back to main menu
     repeatmainmenufunc
@@ -128,27 +135,27 @@ writeentryfunc ()
 clear
 display_center "$BASE_DIR/greeterheader.txt"
 echo "$greeter" 
-play -q $BASE_DIR/ui_hacking_charscroll.wav
+playa $BASE_DIR/ui_hacking_charscroll.wav
 echo "What would you like to name the entry?" | pv -qL 80
 
 #reads user input
 read entrynameinput 
-play -q $BASE_DIR/ui_hacking_charenter_01.wav
+playa $BASE_DIR/ui_hacking_charenter_01.wav
 
 #displays menu text again
 clear
 display_center "$BASE_DIR/greeterheader.txt"
 echo "$greeter" 
-play -q $BASE_DIR/ui_hacking_charscroll.wav
+playa $BASE_DIR/ui_hacking_charscroll.wav
 echo Press CTRL+D to finalise entry  | pv -qL 80
-play -q $BASE_DIR/ui_hacking_charscroll.wav
+playa $BASE_DIR/ui_hacking_charscroll.wav
 echo $entrynameinput:  | pv -qL 80
 echo
 #uses cat text editor to write entries. ctrl+d to finish
 cat >"$BASE_DIR/entries/$entrynameinput"
 cat "$BASE_DIR/entries/$entrynameinput"
 clear
-play -q $BASE_DIR/ui_hacking_charenter_01.wav
+playa $BASE_DIR/ui_hacking_charenter_01.wav
 
 #returns to mainmenu
 repeatmainmenufunc
@@ -172,7 +179,7 @@ done
     clear
     display_center "$BASE_DIR/greeterheader.txt"
     echo "$greeter" 
-    play -q $BASE_DIR/ui_hacking_charscroll.wav
+    playa $BASE_DIR/ui_hacking_charscroll.wav
     echo Which Journal Entry would you like to delete? | pv -qL 80
     
     #displays menu options
@@ -181,11 +188,11 @@ done
     do
     case $readoption in
     "Go Back")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
+    playa $BASE_DIR/ui_hacking_charenter_01.wav
     repeatmainmenufunc
     ;;
         *)
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
+    playa $BASE_DIR/ui_hacking_charenter_01.wav
     ;;
     esac
     
@@ -194,26 +201,26 @@ done
    display_center "$BASE_DIR/greeterheader.txt"
    echo "$greeter"
     echo
-    play -q $BASE_DIR/ui_hacking_charscroll.wav
+    playa $BASE_DIR/ui_hacking_charscroll.wav
     echo "Delete $readoption? Type YES to continue"  | pv -qL 80
-    play -q $BASE_DIR/ui_hacking_charscroll.wav
+    playa $BASE_DIR/ui_hacking_charscroll.wav
     
     #detects user input if they typed in "yes". case insensitive as it converts it to all caps
     read confirmdeletion
      if  [[ ${confirmdeletion^^} == "YES" ]]
      then
      rm -f "$BASE_DIR/entries/$readoption"
-     play -q $BASE_DIR/ui_hacking_charenter_01.wav
+     playa $BASE_DIR/ui_hacking_charenter_01.wav
      echo FILE DELETED!
-     play -q  $BASE_DIR/ui_hacking_passgood.wav
+     playa  $BASE_DIR/ui_hacking_passgood.wav
      sleep 0.1
                 repeatmainmenufunc
                 
             #if something other than yes was typed in
         else
         echo OPERATION CANCELLED
-        play -q $BASE_DIR/ui_hacking_charenter_01.wav
-        play -q  $BASE_DIR/ui_hacking_passbad.wav
+        playa $BASE_DIR/ui_hacking_charenter_01.wav
+        playa $BASE_DIR/ui_hacking_passbad.wav
         sleep 0.2
         
         #goes back to main menu
@@ -229,30 +236,30 @@ clear
 
 display_center "$BASE_DIR/greeterheader.txt"
 echo "$greeter" 
-play -q $BASE_DIR/ui_hacking_charscroll.wav
+playa $BASE_DIR/ui_hacking_charscroll.wav
 echo What would you like to do? | pv -qL 80
 COLUMNS=12
 select menuchoice in "View Journal Entries" "Log a Journal Entry" "Delete a Journal Entry" "Proceed to Desktop"
 do
     case $menuchoice in
     "View Journal Entries")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
+    playa $BASE_DIR/ui_hacking_charenter_01.wav
     viewentriesfunc
     ;;
     "Log a Journal Entry")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
+    playa $BASE_DIR/ui_hacking_charenter_01.wav
    writeentryfunc
     ;;
     "Delete a Journal Entry")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
+    playa $BASE_DIR/ui_hacking_charenter_01.wav
     deleteentryfunc
     ;;
     "Proceed to Desktop")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
+    playa $BASE_DIR/ui_hacking_charenter_01.wav
     echo Goodbye! && exit
     ;;
     *)
-    play -q $BASE_DIR/ui_hacking_passbad.wav
+    playa $BASE_DIR/ui_hacking_passbad.wav
     ;;
     esac
 done
@@ -264,16 +271,16 @@ done
 #some random aesthetic startup junk
 
 clear
-play -q $BASE_DIR/ui_hacking_charscroll.wav
+playa $BASE_DIR/ui_hacking_charscroll.wav
 echo Initializing boot... | pv -qL 80
 sleep 0.4
-play -q $BASE_DIR/ui_hacking_charscroll.wav
+playa $BASE_DIR/ui_hacking_charscroll.wav
 echo Loading RobCo Unified OS...  | pv -qL 80
 sleep 0.4
-play -q $BASE_DIR/ui_hacking_charscroll.wav
+playa $BASE_DIR/ui_hacking_charscroll.wav
 echo 64K RAM detected...  | pv -qL 80
 sleep 0.4
-play -q $BASE_DIR/ui_hacking_charscroll.wav
+playa $BASE_DIR/ui_hacking_charscroll.wav
 echo Launching Interface...  | pv -qL 80
 sleep 0.4
 clear
@@ -290,7 +297,7 @@ echo $'
 '
            
 echo "==============================================" | pv -qL 50
-play -q $BASE_DIR/ui_hacking_passgood.wav
+playa $BASE_DIR/ui_hacking_passgood.wav
 sleep 1
 
 #goes to the main menu
