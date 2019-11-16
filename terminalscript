@@ -37,8 +37,7 @@ Personal Terminal "Proto-Boy" Manufactured by RobCo
 ___________________________________________________'
 
 #Main Menu Screen
-mainmenufunc () 
-{
+mainmenufunc() {
 clear
 
 #display the Menu text
@@ -53,33 +52,32 @@ COLUMNS=12
 select menuchoice in "View Journal Entries" "Log a Journal Entry" "Delete a Journal Entry" "Proceed to Desktop"
 do
     case $menuchoice in
-    "View Journal Entries")
-    playa $BASE_DIR/ui_hacking_charenter_01.wav
-    viewentriesfunc
-    ;;
-    "Log a Journal Entry")
-    playa $BASE_DIR/ui_hacking_charenter_01.wav
-   writeentryfunc
-    ;;
-    "Delete a Journal Entry")
-    playa $BASE_DIR/ui_hacking_charenter_01.wav
-    deleteentryfunc
-    ;;
-    "Proceed to Desktop")
-    playa $BASE_DIR/ui_hacking_charenter_01.wav
-    echo Goodbye! && exit
-    ;;
-    *)
-    playa $BASE_DIR/ui_hacking_passbad.wav
-    ;;
+	   	"View Journal Entries")
+    	playa $BASE_DIR/ui_hacking_charenter_01.wav
+		viewentriesfunc
+	    ;;
+  	 	"Log a Journal Entry")
+	    playa $BASE_DIR/ui_hacking_charenter_01.wav
+   		writeentryfunc
+	    ;;
+	    "Delete a Journal Entry")
+	    playa $BASE_DIR/ui_hacking_charenter_01.wav
+	    deleteentryfunc
+    	;;
+	    "Proceed to Desktop")
+	    playa $BASE_DIR/ui_hacking_charenter_01.wav
+	    echo Goodbye! && exit
+	    ;;
+	    *)
+	    playa $BASE_DIR/ui_hacking_passbad.wav
+	    ;;
     esac
 done
 }
 
 
 #Option 1 Menu, Viewing Journal Entries
-viewentriesfunc () 
-{
+viewentriesfunc() {
 #adding all the text files as individual strings to be used as a selection menu
 entrylist=('Go Back')
 rawentry="$(find $BASE_DIR/entries -type f)"
@@ -88,31 +86,30 @@ i=${i##*/}
 entrylist+=("$i")
 done
 
-#display the Menu text
+	#display the Menu text
     clear
     display_center "$BASE_DIR/greeterheader.txt"
     echo "$greeter" 
     playa $BASE_DIR/ui_hacking_charscroll.wav
     echo Which Journal Entry would you like to access? | pv -qL 80
     
-    #display the menu options
-    COLUMNS=12
-    select readoption in ${entrylist[@]}
-    do
+#display the menu options
+COLUMNS=12
+select readoption in ${entrylist[@]};	do
     case $readoption in
-    "Go Back")
-    playa $BASE_DIR/ui_hacking_charenter_01.wav
-    repeatmainmenufunc
-    ;;
+	    "Go Back")
+	    playa $BASE_DIR/ui_hacking_charenter_01.wav
+	    repeatmainmenufunc
+	    ;;
         *)
-    playa $BASE_DIR/ui_hacking_charenter_01.wav
-    ;;
+	    playa $BASE_DIR/ui_hacking_charenter_01.wav
+	    ;;
     esac
 
     #displays the selected entry
     clear
-   display_center "$BASE_DIR/greeterheader.txt"
-   echo "$greeter"
+	display_center "$BASE_DIR/greeterheader.txt"
+	echo "$greeter"
     echo
     playa $BASE_DIR/ui_hacking_charscroll.wav
     echo "$readoption:"  | pv -qL 80
@@ -124,13 +121,11 @@ done
     
     #goes back to main menu
     repeatmainmenufunc
-    done
+done
 }
 
 #menu for writing an entry
-writeentryfunc () 
-{
-
+writeentryfunc() {
 #displays menu text
 clear
 display_center "$BASE_DIR/greeterheader.txt"
@@ -159,14 +154,10 @@ playa $BASE_DIR/ui_hacking_charenter_01.wav
 
 #returns to mainmenu
 repeatmainmenufunc
-
-
 }
 
 #menu to delete an entry
-deleteentryfunc () 
-{
-
+deleteentryfunc() {
 #adding all the text files as individual strings to be used as a selection menu
 entrylist=('Go Back')
 rawentry="$(find $BASE_DIR/entries -type f)"
@@ -184,40 +175,38 @@ done
     
     #displays menu options
     COLUMNS=12
-    select readoption in ${entrylist[@]}
-    do
-    case $readoption in
-    "Go Back")
-    playa $BASE_DIR/ui_hacking_charenter_01.wav
-    repeatmainmenufunc
-    ;;
-        *)
-    playa $BASE_DIR/ui_hacking_charenter_01.wav
-    ;;
-    esac
+    select readoption in ${entrylist[@]};	do
+    	case $readoption in
+			"Go Back")
+				playa $BASE_DIR/ui_hacking_charenter_01.wav
+			    repeatmainmenufunc
+			    ;;
+			*)
+		    	playa $BASE_DIR/ui_hacking_charenter_01.wav
+			    ;;
+	    esac
     
     #displays menu text again
     clear
-   display_center "$BASE_DIR/greeterheader.txt"
-   echo "$greeter"
+    display_center "$BASE_DIR/greeterheader.txt"
+   	echo "$greeter"
     echo
     playa $BASE_DIR/ui_hacking_charscroll.wav
     echo "Delete $readoption? Type YES to continue"  | pv -qL 80
     playa $BASE_DIR/ui_hacking_charscroll.wav
     
-    #detects user input if they typed in "yes". case insensitive as it converts it to all caps
-    read confirmdeletion
-     if  [[ ${confirmdeletion^^} == "YES" ]]
-     then
-     rm -f "$BASE_DIR/entries/$readoption"
-     playa $BASE_DIR/ui_hacking_charenter_01.wav
-     echo FILE DELETED!
-     playa  $BASE_DIR/ui_hacking_passgood.wav
-     sleep 0.1
-                repeatmainmenufunc
+#detects user input if they typed in "yes". case insensitive as it converts it to all caps
+read confirmdeletion
+    if  [[ ${confirmdeletion^^} == "YES" ]];	then
+	     rm -f "$BASE_DIR/entries/$readoption"
+	     playa $BASE_DIR/ui_hacking_charenter_01.wav
+	     echo "FILE DELETED!"
+	     playa  $BASE_DIR/ui_hacking_passgood.wav
+	     sleep 0.1
+	     repeatmainmenufunc
                 
-            #if something other than yes was typed in
-        else
+        #if something other than yes was typed in
+	else
         echo OPERATION CANCELLED
         playa $BASE_DIR/ui_hacking_charenter_01.wav
         playa $BASE_DIR/ui_hacking_passbad.wav
@@ -225,15 +214,13 @@ done
         
         #goes back to main menu
         repeatmainmenufunc
-        fi
-        done
+	fi
+done
 }
 
 #same as main menu screen function, but without the annoying animations
-repeatmainmenufunc ()
-{
+repeatmainmenufunc() {
 clear
-
 display_center "$BASE_DIR/greeterheader.txt"
 echo "$greeter" 
 playa $BASE_DIR/ui_hacking_charscroll.wav
@@ -242,25 +229,25 @@ COLUMNS=12
 select menuchoice in "View Journal Entries" "Log a Journal Entry" "Delete a Journal Entry" "Proceed to Desktop"
 do
     case $menuchoice in
-    "View Journal Entries")
-    playa $BASE_DIR/ui_hacking_charenter_01.wav
-    viewentriesfunc
-    ;;
-    "Log a Journal Entry")
-    playa $BASE_DIR/ui_hacking_charenter_01.wav
-   writeentryfunc
-    ;;
-    "Delete a Journal Entry")
-    playa $BASE_DIR/ui_hacking_charenter_01.wav
-    deleteentryfunc
-    ;;
-    "Proceed to Desktop")
-    playa $BASE_DIR/ui_hacking_charenter_01.wav
-    echo Goodbye! && exit
-    ;;
-    *)
-    playa $BASE_DIR/ui_hacking_passbad.wav
-    ;;
+	    "View Journal Entries")
+    	playa $BASE_DIR/ui_hacking_charenter_01.wav
+	    viewentriesfunc
+    	;;
+	    "Log a Journal Entry")
+	    playa $BASE_DIR/ui_hacking_charenter_01.wav
+	 	writeentryfunc
+	    ;;
+	    "Delete a Journal Entry")
+	    playa $BASE_DIR/ui_hacking_charenter_01.wav
+	    deleteentryfunc
+	    ;;
+	    "Proceed to Desktop")
+	    playa $BASE_DIR/ui_hacking_charenter_01.wav
+	    echo Goodbye! && exit
+	    ;;
+	    *)
+	    playa $BASE_DIR/ui_hacking_passbad.wav
+	    ;;
     esac
 done
 }
