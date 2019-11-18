@@ -6,8 +6,8 @@ IFS=$'\n'
 entrylist=('Go Back')
 rawentry="$(find $BASE_DIR/entries -type f)"
 for i in $rawentry; do
-i=${i##*/}
-entrylist+=("$i")
+    i=${i##*/}
+    entrylist+=("$i")
 done
 
 COLUMNS=12
@@ -22,7 +22,9 @@ display_center(){
 }
 
 
-#This string is to be displayed as a custom "title header" at the top, feel free to customise it, as most Terminals in Fallout have their own custom one based on their owner!
+# This string is to be displayed as a custom "title header" at the top, feel
+# free to customise it, as most Terminals in Fallout have their own 
+# custom one based on their owner!
 greeter=$'
 Personal Terminal "Proto-Boy" Manufactured by RobCo
 ___________________________________________________'
@@ -30,250 +32,246 @@ ___________________________________________________'
 
 
 #Main Menu Screen
-mainmenufunc () 
+mainmenufunc ()
 {
-clear
-
-#display the Menu text
-play -q $BASE_DIR/ui_hacking_charscroll.wav
-display_center "$BASE_DIR/greeterheader.txt" | pv -qL 80
-echo "$greeter" | pv -qL 80
-play -q $BASE_DIR/ui_hacking_charscroll.wav
-echo What would you like to do? | pv -qL 80
-
-#Display the menu options
-COLUMNS=12
-select menuchoice in "View Journal Entries" "Log a Journal Entry" "Delete a Journal Entry" "Proceed to Desktop"
-do
-    case $menuchoice in
-    "View Journal Entries")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
-    viewentriesfunc
-    ;;
-    "Log a Journal Entry")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
-   writeentryfunc
-    ;;
-    "Delete a Journal Entry")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
-    deleteentryfunc
-    ;;
-    "Proceed to Desktop")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
-    echo Goodbye! && exit
-    ;;
-    *)
-    play -q $BASE_DIR/ui_hacking_passbad.wav
-    ;;
-    esac
-done
+    clear
+    
+    #display the Menu text
+    aplay -q $BASE_DIR/ui_hacking_charscroll.wav
+    display_center "$BASE_DIR/greeterheader.txt" | pv -qL 80
+    echo "$greeter" | pv -qL 80
+    aplay -q $BASE_DIR/ui_hacking_charscroll.wav
+    echo What would you like to do? | pv -qL 80
+    
+    #Display the menu options
+    COLUMNS=12
+    select menuchoice in "View Journal Entries" "Log a Journal Entry" "Delete a Journal Entry" "Proceed to Desktop"
+    do
+        case $menuchoice in
+            "View Journal Entries")
+                aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+                viewentriesfunc
+                ;;
+            "Log a Journal Entry")
+                aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+                writeentryfunc
+                ;;
+            "Delete a Journal Entry")
+                aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+                deleteentryfunc
+                ;;
+            "Proceed to Desktop")
+                aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+                echo Goodbye! && exit
+                ;;
+            *)
+                aplay -q $BASE_DIR/ui_hacking_passbad.wav
+                ;;
+        esac
+    done
 }
 
 
 #Option 1 Menu, Viewing Journal Entries
-viewentriesfunc () 
+viewentriesfunc ()
 {
-#adding all the text files as individual strings to be used as a selection menu
-entrylist=('Go Back')
-rawentry="$(find $BASE_DIR/entries -type f)"
-for i in $rawentry; do
-i=${i##*/}
-entrylist+=("$i")
-done
+    #adding all the text files as individual strings to be used as a selection menu
+    entrylist=('Go Back')
+    rawentry="$(find $BASE_DIR/entries -type f)"
+    for i in $rawentry; do
+        i=${i##*/}
+        entrylist+=("$i")
+    done
 
-#display the Menu text
+    #display the Menu text
     clear
     display_center "$BASE_DIR/greeterheader.txt"
-    echo "$greeter" 
-    play -q $BASE_DIR/ui_hacking_charscroll.wav
+    echo "$greeter"
+    aplay -q $BASE_DIR/ui_hacking_charscroll.wav
     echo Which Journal Entry would you like to access? | pv -qL 80
-    
+
     #display the menu options
     COLUMNS=12
     select readoption in ${entrylist[@]}
     do
     case $readoption in
-    "Go Back")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
-    repeatmainmenufunc
-    ;;
+        "Go Back")
+            aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+            repeatmainmenufunc
+            ;;
         *)
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
-    ;;
+            aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+            ;;
     esac
 
     #displays the selected entry
     clear
-   display_center "$BASE_DIR/greeterheader.txt"
-   echo "$greeter"
+    display_center "$BASE_DIR/greeterheader.txt"
+    echo "$greeter"
     echo
-    play -q $BASE_DIR/ui_hacking_charscroll.wav
+    aplay -q $BASE_DIR/ui_hacking_charscroll.wav
     echo "$readoption:"  | pv -qL 80
-    play -q $BASE_DIR/ui_hacking_charscroll.wav
+    aplay -q $BASE_DIR/ui_hacking_charscroll.wav
     cat< "$BASE_DIR/entries/$readoption"  | pv -qL 80
     echo
     read -p "Press enter to continue"
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
-    
+    aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+
     #goes back to main menu
     repeatmainmenufunc
     done
 }
 
 #menu for writing an entry
-writeentryfunc () 
+writeentryfunc ()
 {
-
-#displays menu text
-clear
-display_center "$BASE_DIR/greeterheader.txt"
-echo "$greeter" 
-play -q $BASE_DIR/ui_hacking_charscroll.wav
-echo "What would you like to name the entry?" | pv -qL 80
-
-#reads user input
-read entrynameinput 
-play -q $BASE_DIR/ui_hacking_charenter_01.wav
-
-#displays menu text again
-clear
-display_center "$BASE_DIR/greeterheader.txt"
-echo "$greeter" 
-play -q $BASE_DIR/ui_hacking_charscroll.wav
-echo Press CTRL+D to finalise entry  | pv -qL 80
-play -q $BASE_DIR/ui_hacking_charscroll.wav
-echo $entrynameinput:  | pv -qL 80
-echo
-#uses cat text editor to write entries. ctrl+d to finish
-cat >"$BASE_DIR/entries/$entrynameinput"
-cat "$BASE_DIR/entries/$entrynameinput"
-clear
-play -q $BASE_DIR/ui_hacking_charenter_01.wav
-
-#returns to mainmenu
-repeatmainmenufunc
-
-
-}
-
-#menu to delete an entry
-deleteentryfunc () 
-{
-
-#adding all the text files as individual strings to be used as a selection menu
-entrylist=('Go Back')
-rawentry="$(find $BASE_DIR/entries -type f)"
-for i in $rawentry; do
-i=${i##*/}
-entrylist+=("$i")
-done
 
     #displays menu text
     clear
     display_center "$BASE_DIR/greeterheader.txt"
-    echo "$greeter" 
-    play -q $BASE_DIR/ui_hacking_charscroll.wav
-    echo Which Journal Entry would you like to delete? | pv -qL 80
+    echo "$greeter"
+    aplay -q $BASE_DIR/ui_hacking_charscroll.wav
+    echo "What would you like to name the entry?" | pv -qL 80
     
+    #reads user input
+    read entrynameinput
+    aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+    
+    #displays menu text again
+    clear
+    display_center "$BASE_DIR/greeterheader.txt"
+    echo "$greeter"
+    aplay -q $BASE_DIR/ui_hacking_charscroll.wav
+    echo Press CTRL+D to finalise entry  | pv -qL 80
+    aplay -q $BASE_DIR/ui_hacking_charscroll.wav
+    echo $entrynameinput:  | pv -qL 80
+    echo
+    #uses cat text editor to write entries. ctrl+d to finish
+    cat >"$BASE_DIR/entries/$entrynameinput"
+    cat "$BASE_DIR/entries/$entrynameinput"
+    clear
+    aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+    
+    #returns to mainmenu
+    repeatmainmenufunc
+
+}
+
+#menu to delete an entry
+deleteentryfunc ()
+{
+
+    #adding all the text files as individual strings to be used as a selection menu
+    entrylist=('Go Back')
+    rawentry="$(find $BASE_DIR/entries -type f)"
+    for i in $rawentry; do
+        i=${i##*/}
+        entrylist+=("$i")
+    done
+
+    #displays menu text
+    clear
+    display_center "$BASE_DIR/greeterheader.txt"
+    echo "$greeter"
+    aplay -q $BASE_DIR/ui_hacking_charscroll.wav
+    echo Which Journal Entry would you like to delete? | pv -qL 80
+
     #displays menu options
     COLUMNS=12
     select readoption in ${entrylist[@]}
     do
-    case $readoption in
-    "Go Back")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
-    repeatmainmenufunc
-    ;;
-        *)
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
-    ;;
-    esac
-    
-    #displays menu text again
-    clear
-   display_center "$BASE_DIR/greeterheader.txt"
-   echo "$greeter"
-    echo
-    play -q $BASE_DIR/ui_hacking_charscroll.wav
-    echo "Delete $readoption? Type YES to continue"  | pv -qL 80
-    play -q $BASE_DIR/ui_hacking_charscroll.wav
-    
-    #detects user input if they typed in "yes". case insensitive as it converts it to all caps
-    read confirmdeletion
-     if  [[ ${confirmdeletion^^} == "YES" ]]
-     then
-     rm -f "$BASE_DIR/entries/$readoption"
-     play -q $BASE_DIR/ui_hacking_charenter_01.wav
-     echo FILE DELETED!
-     play -q  $BASE_DIR/ui_hacking_passgood.wav
-     sleep 0.1
+        case $readoption in
+            "Go Back")
+                aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
                 repeatmainmenufunc
-                
-            #if something other than yes was typed in
+                ;;
+            *)
+                aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+                ;;
+        esac
+
+        #displays menu text again
+        clear
+        display_center "$BASE_DIR/greeterheader.txt"
+        echo "$greeter"
+        echo
+        aplay -q $BASE_DIR/ui_hacking_charscroll.wav
+        echo "Delete $readoption? Type YES to continue"  | pv -qL 80
+        aplay -q $BASE_DIR/ui_hacking_charscroll.wav
+    
+        #detects user input if they typed in "yes". case insensitive as it converts it to all caps
+        read confirmdeletion
+        if  [[ ${confirmdeletion^^} == "YES" ]]
+        then
+            rm -f "$BASE_DIR/entries/$readoption"
+            aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+            echo FILE DELETED!
+            aplay -q  $BASE_DIR/ui_hacking_passgood.wav
+            sleep 0.1
+            repeatmainmenufunc
+    
+        #if something other than yes was typed in
         else
-        echo OPERATION CANCELLED
-        play -q $BASE_DIR/ui_hacking_charenter_01.wav
-        play -q  $BASE_DIR/ui_hacking_passbad.wav
-        sleep 0.2
-        
-        #goes back to main menu
-        repeatmainmenufunc
+            echo OPERATION CANCELLED
+            aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+            aplay -q  $BASE_DIR/ui_hacking_passbad.wav
+            sleep 0.2
+    
+            #goes back to main menu
+            repeatmainmenufunc
         fi
-        done
+    done
 }
 
 #same as main menu screen function, but without the annoying animations
 repeatmainmenufunc ()
 {
-clear
-
-display_center "$BASE_DIR/greeterheader.txt"
-echo "$greeter" 
-play -q $BASE_DIR/ui_hacking_charscroll.wav
-echo What would you like to do? | pv -qL 80
-COLUMNS=12
-select menuchoice in "View Journal Entries" "Log a Journal Entry" "Delete a Journal Entry" "Proceed to Desktop"
-do
-    case $menuchoice in
-    "View Journal Entries")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
-    viewentriesfunc
-    ;;
-    "Log a Journal Entry")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
-   writeentryfunc
-    ;;
-    "Delete a Journal Entry")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
-    deleteentryfunc
-    ;;
-    "Proceed to Desktop")
-    play -q $BASE_DIR/ui_hacking_charenter_01.wav
-    echo Goodbye! && exit
-    ;;
-    *)
-    play -q $BASE_DIR/ui_hacking_passbad.wav
-    ;;
-    esac
-done
+    clear
+    
+    display_center "$BASE_DIR/greeterheader.txt"
+    echo "$greeter"
+    aplay -q $BASE_DIR/ui_hacking_charscroll.wav
+    echo What would you like to do? | pv -qL 80
+    COLUMNS=12
+    select menuchoice in "View Journal Entries" "Log a Journal Entry" "Delete a Journal Entry" "Proceed to Desktop"
+    do
+        case $menuchoice in
+            "View Journal Entries")
+            aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+            viewentriesfunc
+            ;;
+        "Log a Journal Entry")
+            aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+            writeentryfunc
+            ;;
+        "Delete a Journal Entry")
+            aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+            deleteentryfunc
+            ;;
+        "Proceed to Desktop")
+            aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+            echo Goodbye! && exit
+            ;;
+        *)
+            aplay -q $BASE_DIR/ui_hacking_passbad.wav
+            ;;
+        esac
+    done
 }
-
-
-
 
 #some random aesthetic startup junk
 
 clear
-play -q $BASE_DIR/ui_hacking_charscroll.wav
+aplay -q $BASE_DIR/ui_hacking_charscroll.wav
 echo Initializing boot... | pv -qL 80
 sleep 0.4
-play -q $BASE_DIR/ui_hacking_charscroll.wav
+aplay -q $BASE_DIR/ui_hacking_charscroll.wav
 echo Loading RobCo Unified OS...  | pv -qL 80
 sleep 0.4
-play -q $BASE_DIR/ui_hacking_charscroll.wav
+aplay -q $BASE_DIR/ui_hacking_charscroll.wav
 echo 64K RAM detected...  | pv -qL 80
 sleep 0.4
-play -q $BASE_DIR/ui_hacking_charscroll.wav
+aplay -q $BASE_DIR/ui_hacking_charscroll.wav
 echo Launching Interface...  | pv -qL 80
 sleep 0.4
 clear
@@ -290,7 +288,7 @@ echo $'
 '
            
 echo "==============================================" | pv -qL 50
-play -q $BASE_DIR/ui_hacking_passgood.wav
+aplay -q $BASE_DIR/ui_hacking_passgood.wav
 sleep 1
 
 #goes to the main menu
