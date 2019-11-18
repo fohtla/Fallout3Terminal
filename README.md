@@ -16,7 +16,7 @@ You must have the following:
 * The following packages installed:
     * pv
     * cool-retro-term
-    * sox
+    * alsa-utils
 
 This has not been tested on Windows or *BSD operating systems.
 
@@ -41,7 +41,7 @@ You can also enter that command in your startup manager, as well as make launche
 * Have homebrew installed
    * Run the following:
 ```
-brew install sox pv
+brew install alsa-utils pv
 brew cask install cool-retro-term
 git clone https://github.com/fohtla/Fallout3Terminal
 /Applications/cool-retro-term.app/Contents/MacOS/cool-retro-term --fullscreen --noclose -e bash $HOME/Fallout3Terminal/terminalscript
