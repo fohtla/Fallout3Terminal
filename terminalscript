@@ -22,7 +22,9 @@ display_center(){
 }
 
 
-#This string is to be displayed as a custom "title header" at the top, feel free to customise it, as most Terminals in Fallout have their own custom one based on their owner!
+# This string is to be displayed as a custom "title header" at the top, feel
+# free to customise it, as most Terminals in Fallout have their own 
+# custom one based on their owner!
 greeter=$'
 Personal Terminal "Proto-Boy" Manufactured by RobCo
 ___________________________________________________'
