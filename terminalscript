@@ -46,25 +46,25 @@ mainmenufunc ()
     select menuchoice in "View Journal Entries" "Log a Journal Entry" "Delete a Journal Entry" "Proceed to Desktop"
     do
         case $menuchoice in
-        "View Journal Entries")
-        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-        viewentriesfunc
-        ;;
-        "Log a Journal Entry")
-        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-        writeentryfunc
-        ;;
-        "Delete a Journal Entry")
-        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-        deleteentryfunc
-        ;;
-        "Proceed to Desktop")
-        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-        echo Goodbye! && exit
-        ;;
-        *)
-        aplay -q $BASE_DIR/ui_hacking_passbad.wav
-        ;;
+            "View Journal Entries")
+                aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+                viewentriesfunc
+                ;;
+            "Log a Journal Entry")
+                aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+                writeentryfunc
+                ;;
+            "Delete a Journal Entry")
+                aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+                deleteentryfunc
+                ;;
+            "Proceed to Desktop")
+                aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+                echo Goodbye! && exit
+                ;;
+            *)
+                aplay -q $BASE_DIR/ui_hacking_passbad.wav
+                ;;
         esac
     done
 }
@@ -94,12 +94,12 @@ viewentriesfunc ()
     do
     case $readoption in
         "Go Back")
-        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-        repeatmainmenufunc
-        ;;
-            *)
-        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-        ;;
+            aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+            repeatmainmenufunc
+            ;;
+        *)
+            aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+            ;;
     esac
 
     #displays the selected entry
@@ -179,46 +179,46 @@ deleteentryfunc ()
     select readoption in ${entrylist[@]}
     do
         case $readoption in
-        "Go Back")
-        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-        repeatmainmenufunc
-        ;;
+            "Go Back")
+                aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+                repeatmainmenufunc
+                ;;
             *)
-        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-        ;;
-    esac
+                aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+                ;;
+        esac
 
-    #displays menu text again
-    clear
-    display_center "$BASE_DIR/greeterheader.txt"
-    echo "$greeter"
-    echo
-    aplay -q $BASE_DIR/ui_hacking_charscroll.wav
-    echo "Delete $readoption? Type YES to continue"  | pv -qL 80
-    aplay -q $BASE_DIR/ui_hacking_charscroll.wav
-
-    #detects user input if they typed in "yes". case insensitive as it converts it to all caps
-    read confirmdeletion
-    if  [[ ${confirmdeletion^^} == "YES" ]]
-    then
-        rm -f "$BASE_DIR/entries/$readoption"
-        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-        echo FILE DELETED!
-        aplay -q  $BASE_DIR/ui_hacking_passgood.wav
-        sleep 0.1
-        repeatmainmenufunc
-
-     #if something other than yes was typed in
-    else
-        echo OPERATION CANCELLED
-        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-        aplay -q  $BASE_DIR/ui_hacking_passbad.wav
-        sleep 0.2
-
-        #goes back to main menu
-        repeatmainmenufunc
-     fi
-     done
+        #displays menu text again
+        clear
+        display_center "$BASE_DIR/greeterheader.txt"
+        echo "$greeter"
+        echo
+        aplay -q $BASE_DIR/ui_hacking_charscroll.wav
+        echo "Delete $readoption? Type YES to continue"  | pv -qL 80
+        aplay -q $BASE_DIR/ui_hacking_charscroll.wav
+    
+        #detects user input if they typed in "yes". case insensitive as it converts it to all caps
+        read confirmdeletion
+        if  [[ ${confirmdeletion^^} == "YES" ]]
+        then
+            rm -f "$BASE_DIR/entries/$readoption"
+            aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+            echo FILE DELETED!
+            aplay -q  $BASE_DIR/ui_hacking_passgood.wav
+            sleep 0.1
+            repeatmainmenufunc
+    
+        #if something other than yes was typed in
+        else
+            echo OPERATION CANCELLED
+            aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+            aplay -q  $BASE_DIR/ui_hacking_passbad.wav
+            sleep 0.2
+    
+            #goes back to main menu
+            repeatmainmenufunc
+        fi
+    done
 }
 
 #same as main menu screen function, but without the annoying animations
@@ -234,27 +234,27 @@ repeatmainmenufunc ()
     select menuchoice in "View Journal Entries" "Log a Journal Entry" "Delete a Journal Entry" "Proceed to Desktop"
     do
         case $menuchoice in
-        "View Journal Entries")
-        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-        viewentriesfunc
-        ;;
+            "View Journal Entries")
+            aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+            viewentriesfunc
+            ;;
         "Log a Journal Entry")
-        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-        writeentryfunc
-        ;;
+            aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+            writeentryfunc
+            ;;
         "Delete a Journal Entry")
-        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-        deleteentryfunc
-        ;;
+            aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+            deleteentryfunc
+            ;;
         "Proceed to Desktop")
-        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-        echo Goodbye! && exit
-        ;;
+            aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+            echo Goodbye! && exit
+            ;;
         *)
-        aplay -q $BASE_DIR/ui_hacking_passbad.wav
-        ;;
-    esac
-done
+            aplay -q $BASE_DIR/ui_hacking_passbad.wav
+            ;;
+        esac
+    done
 }
 
 #some random aesthetic startup junk
