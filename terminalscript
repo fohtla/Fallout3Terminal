@@ -6,8 +6,8 @@ IFS=$'\n'
 entrylist=('Go Back')
 rawentry="$(find $BASE_DIR/entries -type f)"
 for i in $rawentry; do
-i=${i##*/}
-entrylist+=("$i")
+    i=${i##*/}
+    entrylist+=("$i")
 done
 
 COLUMNS=12
@@ -32,41 +32,41 @@ ___________________________________________________'
 #Main Menu Screen
 mainmenufunc ()
 {
-clear
-
-#display the Menu text
-aplay -q $BASE_DIR/ui_hacking_charscroll.wav
-display_center "$BASE_DIR/greeterheader.txt" | pv -qL 80
-echo "$greeter" | pv -qL 80
-aplay -q $BASE_DIR/ui_hacking_charscroll.wav
-echo What would you like to do? | pv -qL 80
-
-#Display the menu options
-COLUMNS=12
-select menuchoice in "View Journal Entries" "Log a Journal Entry" "Delete a Journal Entry" "Proceed to Desktop"
-do
-    case $menuchoice in
-    "View Journal Entries")
-    aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-    viewentriesfunc
-    ;;
-    "Log a Journal Entry")
-    aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-    writeentryfunc
-    ;;
-    "Delete a Journal Entry")
-    aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-    deleteentryfunc
-    ;;
-    "Proceed to Desktop")
-    aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
-    echo Goodbye! && exit
-    ;;
-    *)
-    aplay -q $BASE_DIR/ui_hacking_passbad.wav
-    ;;
-    esac
-done
+    clear
+    
+    #display the Menu text
+    aplay -q $BASE_DIR/ui_hacking_charscroll.wav
+    display_center "$BASE_DIR/greeterheader.txt" | pv -qL 80
+    echo "$greeter" | pv -qL 80
+    aplay -q $BASE_DIR/ui_hacking_charscroll.wav
+    echo What would you like to do? | pv -qL 80
+    
+    #Display the menu options
+    COLUMNS=12
+    select menuchoice in "View Journal Entries" "Log a Journal Entry" "Delete a Journal Entry" "Proceed to Desktop"
+    do
+        case $menuchoice in
+        "View Journal Entries")
+        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+        viewentriesfunc
+        ;;
+        "Log a Journal Entry")
+        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+        writeentryfunc
+        ;;
+        "Delete a Journal Entry")
+        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+        deleteentryfunc
+        ;;
+        "Proceed to Desktop")
+        aplay -q $BASE_DIR/ui_hacking_charenter_01.wav
+        echo Goodbye! && exit
+        ;;
+        *)
+        aplay -q $BASE_DIR/ui_hacking_passbad.wav
+        ;;
+        esac
+    done
 }
 
 
