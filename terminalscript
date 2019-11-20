@@ -104,8 +104,7 @@ select choice in ${lists[@]}; do
 			playa $BASE_DIR/ui_hacking_charscroll.wav
 			cat< "$BASE_DIR/entries/$choice"  | pv -qL 80
 			echo
-			echo "Press enter to continue" | pv -qL 80
-			sleep 5
+			read -p "Press enter to continue"
 			playa $BASE_DIR/ui_hacking_charenter_01.wav
 			main_menu_func "3000"
 	fi
