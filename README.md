@@ -1,8 +1,10 @@
 # Fallout3Terminal
 
+![Alt Text](https://imgur.com/TVyf3ER.gif)
+
 Fallout3Terminal is my own version of a Fallout 3/4/NV Terminal operating system, complete with the ability to write journal entries, and in-game sounds from Fallout 3 itself! I tried to recreate as many little details there are in the games, like the RobCo OS header and such, though you will notice I took quite a few liberties.
 
-This is actually just a bash script that can be run from the terminal, and the output is displaying on a highly customizable retro terminal called cool-retro-terminal. 
+This is actually just a bash script that can be run from the terminal, and the output is displaying on a highly customizable retro terminal called cool-retro-terminal.
 
 See my demonstration video of this on reddit, the post can be found here:
 
